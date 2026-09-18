@@ -1,0 +1,60 @@
+package RadSuiteExpertD13;
+
+{$R *.res}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO OFF}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION ON}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES OFF}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DESCRIPTION 'RadSuite Expert for Delphi 13'}
+{$IMPLICITBUILD OFF}
+{$DESIGNONLY}
+
+requires
+  rtl,
+  vcl,
+  designide;
+
+contains
+  RadSuite.IDE.Utils in 'src\RadSuite.IDE.Utils.pas',
+  RadSuite.UI.Theme in 'src\UI\RadSuite.UI.Theme.pas',
+  RadSuite.Tools.AsciiChart in 'src\Tools\RadSuite.Tools.AsciiChart.pas',
+  RadSuite.Tools.PEInformation in 'src\Tools\RadSuite.Tools.PEInformation.pas',
+  RadSuite.Tools.CleanDirectories in 'src\Tools\RadSuite.Tools.CleanDirectories.pas',
+  RadSuite.Tools.CodeLibrarian in 'src\Tools\RadSuite.Tools.CodeLibrarian.pas',
+  RadSuite.Tools.UsesClauseManager in 'src\Tools\RadSuite.Tools.UsesClauseManager.pas',
+  RadSuite.Tools.UsesCleaner in 'src\Tools\RadSuite.Tools.UsesCleaner.pas',
+  RadSuite.Tools.AddMember in 'src\Tools\RadSuite.Tools.AddMember.pas',
+  RadSuite.Tools.ClassBrowser in 'src\Tools\RadSuite.Tools.ClassBrowser.pas',
+  RadSuite.Tools.UnitDependencies in 'src\Tools\RadSuite.Tools.UnitDependencies.pas',
+  RadSuite.Tools.InitializationTree in 'src\Tools\RadSuite.Tools.InitializationTree.pas',
+  RadSuite.Tools.GrepSearch in 'src\Tools\RadSuite.Tools.GrepSearch.pas',
+  RadSuite.Tools.AIAssistant in 'src\Tools\RadSuite.Tools.AIAssistant.pas',
+  RadSuite.Tools.ProjectOptionSets in 'src\Tools\RadSuite.Tools.ProjectOptionSets.pas',
+  RadSuite.Tools.ListUnits in 'src\Tools\RadSuite.Tools.ListUnits.pas',
+  RadSuite.Tools.ProjectBackup in 'src\Tools\RadSuite.Tools.ProjectBackup.pas',
+  RadSuite.Tools.ProjectDirBuilder in 'src\Tools\RadSuite.Tools.ProjectDirBuilder.pas',
+  RadSuite.Tools.SourceTemplates in 'src\Tools\RadSuite.Tools.SourceTemplates.pas',
+  RadSuite.Tools.TextTools in 'src\Tools\RadSuite.Tools.TextTools.pas',
+  RadSuite.Expert.MainMenu in 'src\RadSuite.Expert.MainMenu.pas',
+  RadSuite.Expert.Wizard in 'src\RadSuite.Expert.Wizard.pas',
+  RadSuite.Expert.AboutBox in 'src\RadSuite.Expert.AboutBox.pas',
+  RadSuite.Expert.Register in 'src\RadSuite.Expert.Register.pas';
+
+end.

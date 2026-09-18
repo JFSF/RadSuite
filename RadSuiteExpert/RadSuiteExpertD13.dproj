@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{D318C086-5F41-4883-82D5-3E743D13B3E3}</ProjectGuid>
+        <ProjectVersion>19.6</ProjectVersion>
+        <FrameworkType>VCL</FrameworkType>
+        <MainSource>RadSuiteExpertD13.dpk</MainSource>
+        <Base>True</Base>
+        <Config Condition="'$(Config)'==''">Debug</Config>
+        <Platform Condition="'$(Platform)'==''">Win32</Platform>
+        <TargetedPlatforms>3</TargetedPlatforms>
+        <AppType>Package</AppType>
+        <IsPackage>true</IsPackage>
+        <ProjectType>Package</ProjectType>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Debug' or '$(Cfg_1)'!=''">
+        <Cfg_1>true</Cfg_1>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_2)'!=''">
+        <Cfg_2>true</Cfg_2>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base)'!=''">
+        <DCC_DcuOutput>.\$(Platform)\$(Config)</DCC_DcuOutput>
+        <DCC_ExeOutput>.\$(Platform)\$(Config)</DCC_ExeOutput>
+        <DCC_Namespace>Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;System;Xml;Data;Datasnap;Web;Soap;Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
+        <DCC_UnitAlias>WinTypes=Winapi.Windows;WinProcs=Winapi.Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;$(DCC_UnitAlias)</DCC_UnitAlias>
+        <DCC_UsePackage>rtl;vcl;designide;$(DCC_UsePackage)</DCC_UsePackage>
+        <DCC_DesignOnly>true</DCC_DesignOnly>
+        <DCC_ImageBase>00400000</DCC_ImageBase>
+        <DCC_Description>RadSuite Expert for Delphi 13</DCC_Description>
+        <GenPackage>true</GenPackage>
+        <GenDll>true</GenDll>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_1)'!=''">
+        <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
+        <DCC_DebugInformation>true</DCC_DebugInformation>
+        <DCC_Optimize>false</DCC_Optimize>
+        <DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2)'!=''">
+        <DCC_DebugInformation>false</DCC_DebugInformation>
+        <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
+        <DCC_Optimize>true</DCC_Optimize>
+    </PropertyGroup>
+    <ItemGroup>
+        <DelphiCompile Include="RadSuiteExpertD13.dpk">
+            <MainSource>MainSource</MainSource>
+        </DelphiCompile>
+        <DCCReference Include="src\RadSuite.IDE.Utils.pas"/>
+        <DCCReference Include="src\UI\RadSuite.UI.Theme.pas"/>
+        <DCCReference Include="src\Tools\RadSuite.Tools.AsciiChart.pas"/>
+        <DCCReference Include="src\Tools\RadSuite.Tools.PEInformation.pas"/>
+        <DCCReference Include="src\Tools\RadSuite.Tools.CleanDirectories.pas"/>
+        <DCCReference Include="src\Tools\RadSuite.Tools.CodeLibrarian.pas"/>
+        <DCCReference Include="src\Tools\RadSuite.Tools.UsesClauseManager.pas"/>
+        <DCCReference Include="src\Tools\RadSuite.Tools.UsesCleaner.pas"/>
+        <DCCReference Include="src\Tools\RadSuite.Tools.AddMember.pas"/>
+        <DCCReference Include="src\Tools\RadSuite.Tools.ClassBrowser.pas"/>
+        <DCCReference Include="src\Tools\RadSuite.Tools.UnitDependencies.pas"/>
+        <DCCReference Include="src\Tools\RadSuite.Tools.InitializationTree.pas"/>
+        <DCCReference Include="src\Tools\RadSuite.Tools.GrepSearch.pas"/>
+        <DCCReference Include="src\Tools\RadSuite.Tools.AIAssistant.pas"/>
+        <DCCReference Include="src\Tools\RadSuite.Tools.ProjectOptionSets.pas"/>
+        <DCCReference Include="src\Tools\RadSuite.Tools.ListUnits.pas"/>
+        <DCCReference Include="src\Tools\RadSuite.Tools.ProjectBackup.pas"/>
+        <DCCReference Include="src\Tools\RadSuite.Tools.ProjectDirBuilder.pas"/>
+        <DCCReference Include="src\Tools\RadSuite.Tools.SourceTemplates.pas"/>
+        <DCCReference Include="src\Tools\RadSuite.Tools.TextTools.pas"/>
+        <DCCReference Include="src\RadSuite.Expert.MainMenu.pas"/>
+        <DCCReference Include="src\RadSuite.Expert.Wizard.pas"/>
+        <DCCReference Include="src\RadSuite.Expert.AboutBox.pas"/>
+        <DCCReference Include="src\RadSuite.Expert.Register.pas"/>
+        <BuildConfiguration Include="Release">
+            <Key>Cfg_2</Key>
+            <CfgParent>Base</CfgParent>
+        </BuildConfiguration>
+        <BuildConfiguration Include="Debug">
+            <Key>Cfg_1</Key>
+            <CfgParent>Base</CfgParent>
+        </BuildConfiguration>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Delphi.Personality.12</Borland.Personality>
+        <Borland.ProjectType>Package</Borland.ProjectType>
+        <BorlandProject>
+            <Delphi.Personality>
+                <Source>
+                    <Source Name="MainSource">RadSuiteExpertD13.dpk</Source>
+                </Source>
+            </Delphi.Personality>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Import Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')" Project="$(BDS)\Bin\CodeGear.Delphi.Targets"/>
+    <Import Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')" Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj"/>
+</Project>
