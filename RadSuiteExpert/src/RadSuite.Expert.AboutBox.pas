@@ -20,9 +20,11 @@ begin
   if Supports(BorlandIDEServices, IOTAAboutBoxServices, AboutBoxServices) then
     AboutBoxIndex := AboutBoxServices.AddPluginInfo(
       'RadSuite Expert',
-      'Toolkit de produtividade para o Delphi 13: Grep Search & Replace, Uses Clause ' +
-      'Manager, Class Browser, Unit Dependencies, Code Librarian, AI Assistant, PE ' +
-      'Information, ASCII Chart e Clean Directories.' + sLineBreak +
+      'Toolkit de produtividade para o Delphi 13, inspirado no GExperts, no ' +
+      'CnWizards e no MMX Code Explorer: Grep, Uses Clause Manager/Cleaner, Class ' +
+      'Browser, Unit Dependencies, Initialization Tree, Code Librarian, Add Member, ' +
+      'AI Assistant, Source Templates, Text Tools, Project Option Sets/Backup/Dir ' +
+      'Builder, PE Information, ASCII Chart e Clean Directories.' + sLineBreak +
       'https://github.com/jfsf/radsuite',
       0);
 end;

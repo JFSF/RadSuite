@@ -180,13 +180,13 @@ begin
         for Used in SourceMap[Name] do
           if FUnitFiles.ContainsKey(Used) and not SameText(Used, Name) then
           begin
-            ChildNode := FTree.Items.AddChildObject(DependsNode, Used, Pointer(1));
+            ChildNode := FTree.Items.AddChildObject(DependsNode, Used, TObject(1));
           end;
 
         UsedByNode := FTree.Items.AddChild(UnitNode, 'É usada por');
         if UsedBy.ContainsKey(Name) then
           for Used in UsedBy[Name] do
-            ChildNode := FTree.Items.AddChildObject(UsedByNode, Used, Pointer(1));
+            ChildNode := FTree.Items.AddChildObject(UsedByNode, Used, TObject(1));
       end;
     finally
       FTree.Items.EndUpdate;

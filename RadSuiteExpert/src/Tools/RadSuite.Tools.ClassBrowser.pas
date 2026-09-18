@@ -10,8 +10,8 @@ uses
   System.SysUtils, System.Classes, System.RegularExpressions, System.StrUtils,
   System.Math,
   ToolsAPI,
-  Vcl.Forms, Vcl.Controls, Vcl.ComCtrls, Vcl.StdCtrls, Vcl.ExtCtrls,
-  RadSuite.UI.Theme, RadSuite.IDE.Utils;
+  Vcl.Forms, Vcl.Controls, Vcl.ComCtrls, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Menus,
+  RadSuite.UI.Theme, RadSuite.IDE.Utils, RadSuite.Tools.AddMember;
 
 {
   Class Browser leve: procura declarações de classes na unit ativa via
@@ -88,6 +88,7 @@ type
     FFileName: string;
     procedure AnalyzeUnit;
     procedure TreeDblClick(Sender: TObject);
+    procedure AddMemberClick(Sender: TObject);
   public
     constructor Create(AOwner: TComponent); override;
   end;
@@ -117,6 +118,9 @@ begin
   FTree.Align := alClient;
   FTree.ReadOnly := True;
   FTree.OnDblClick := TreeDblClick;
+
+  FTree.PopupMenu := TPopupMenu.Create(Self);
+  FTree.PopupMenu.Items.Add(NewItem('Adicionar Membro...', 0, False, True, AddMemberClick, 0, ''));
 
   AnalyzeUnit;
 end;
@@ -195,6 +199,11 @@ begin
   LineNo := Integer(FTree.Selected.Data);
   if LineNo > 0 then
     GotoEditorLine(FFileName, LineNo);
+end;
+
+procedure TfrmClassBrowser.AddMemberClick(Sender: TObject);
+begin
+  ShowAddMember;
 end;
 
 procedure ShowClassBrowser;
