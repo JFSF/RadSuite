@@ -6,21 +6,15 @@ uses
   ToolsAPI;
 
 type
-  TRadSuiteWizard = class(TNotifierObject, IOTAWizard, IOTAMenuWizard)
+  TRadSuiteWizard = class(TNotifierObject, IOTAWizard)
   public
-    // IOTAWizard
     function GetIDString: string;
     function GetName: string;
     function GetState: TWizardState;
     procedure Execute;
-    // IOTAMenuWizard
-    function GetMenuText: string;
   end;
 
 implementation
-
-uses
-  Vcl.Dialogs;
 
 { TRadSuiteWizard }
 
@@ -39,14 +33,11 @@ begin
   Result := [wsEnabled];
 end;
 
-function TRadSuiteWizard.GetMenuText: string;
-begin
-  Result := 'RadSuite Expert...';
-end;
-
 procedure TRadSuiteWizard.Execute;
 begin
-  ShowMessage('RadSuite Expert instalado com sucesso no Delphi 13!');
+  // Sem ação direta: as ferramentas são acedidas pelo menu "RadSuite" da IDE
+  // (ver RadSuite.Expert.MainMenu). Este wizard existe para satisfazer o
+  // registo mínimo exigido pela Open Tools API.
 end;
 
 end.

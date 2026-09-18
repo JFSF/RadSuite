@@ -8,7 +8,7 @@ procedure UnregisterAboutBox;
 implementation
 
 uses
-  ToolsAPI;
+  System.SysUtils, ToolsAPI;
 
 var
   AboutBoxIndex: Integer = -1;
@@ -20,7 +20,9 @@ begin
   if Supports(BorlandIDEServices, IOTAAboutBoxServices, AboutBoxServices) then
     AboutBoxIndex := AboutBoxServices.AddPluginInfo(
       'RadSuite Expert',
-      'Expert/Wizard personalizado para o Delphi 13.' + sLineBreak +
+      'Toolkit de produtividade para o Delphi 13: Grep Search & Replace, Uses Clause ' +
+      'Manager, Class Browser, Unit Dependencies, Code Librarian, AI Assistant, PE ' +
+      'Information, ASCII Chart e Clean Directories.' + sLineBreak +
       'https://github.com/jfsf/radsuite',
       0);
 end;
