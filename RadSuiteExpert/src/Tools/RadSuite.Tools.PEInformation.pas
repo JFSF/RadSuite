@@ -28,6 +28,8 @@ type
     Size: UInt32;
   end;
 
+  TRSImageDataDirectoryArray = array[0..15] of TRSImageDataDirectory;
+
   TRSImageFileHeader = packed record
     Machine: Word;
     NumberOfSections: Word;
@@ -52,7 +54,7 @@ type
     SizeOfStackReserve, SizeOfStackCommit: UInt32;
     SizeOfHeapReserve, SizeOfHeapCommit: UInt32;
     LoaderFlags, NumberOfRvaAndSizes: UInt32;
-    DataDirectory: array[0..15] of TRSImageDataDirectory;
+    DataDirectory: TRSImageDataDirectoryArray;
   end;
 
   TRSImageOptionalHeader64 = packed record
@@ -70,7 +72,7 @@ type
     SizeOfStackReserve, SizeOfStackCommit: UInt64;
     SizeOfHeapReserve, SizeOfHeapCommit: UInt64;
     LoaderFlags, NumberOfRvaAndSizes: UInt32;
-    DataDirectory: array[0..15] of TRSImageDataDirectory;
+    DataDirectory: TRSImageDataDirectoryArray;
   end;
 
   TRSImageSectionHeader = packed record
@@ -221,7 +223,7 @@ var
   Is64: Boolean;
   Opt32: TRSImageOptionalHeader32;
   Opt64: TRSImageOptionalHeader64;
-  DataDirs: array[0..15] of TRSImageDataDirectory;
+  DataDirs: TRSImageDataDirectoryArray;
   Sections: TArray<TRSImageSectionHeader>;
   Sec: TRSImageSectionHeader;
   I, J: Integer;

@@ -97,7 +97,7 @@ begin
       gsDirectory:
         if TDirectory.Exists(FDirEdit.Text) then
         begin
-          Masks := FMaskEdit.Text.Split([';']);
+          Masks := SplitString(FMaskEdit.Text, ';');
           for Mask in Masks do
             if Trim(Mask) <> '' then
             begin
