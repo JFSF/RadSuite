@@ -113,11 +113,67 @@ const
   IMAGE_ORDINAL_FLAG32 = UInt32($80000000);
   IMAGE_ORDINAL_FLAG64 = UInt64($8000000000000000);
 
-function ReadStruct<T>(const Buffer: TBytes; Offset: Int64; out Value: T): Boolean;
+function ReadStruct(const Buffer: TBytes; Offset: Int64; out Value: TRSImageDosHeader): Boolean; overload;
 begin
-  Result := (Offset >= 0) and (Offset + SizeOf(T) <= Length(Buffer));
+  Result := (Offset >= 0) and (Offset + SizeOf(Value) <= Length(Buffer));
   if Result then
-    Move(Buffer[Offset], Value, SizeOf(T));
+    Move(Buffer[Offset], Value, SizeOf(Value));
+end;
+
+function ReadStruct(const Buffer: TBytes; Offset: Int64; out Value: TRSImageFileHeader): Boolean; overload;
+begin
+  Result := (Offset >= 0) and (Offset + SizeOf(Value) <= Length(Buffer));
+  if Result then
+    Move(Buffer[Offset], Value, SizeOf(Value));
+end;
+
+function ReadStruct(const Buffer: TBytes; Offset: Int64; out Value: TRSImageOptionalHeader32): Boolean; overload;
+begin
+  Result := (Offset >= 0) and (Offset + SizeOf(Value) <= Length(Buffer));
+  if Result then
+    Move(Buffer[Offset], Value, SizeOf(Value));
+end;
+
+function ReadStruct(const Buffer: TBytes; Offset: Int64; out Value: TRSImageOptionalHeader64): Boolean; overload;
+begin
+  Result := (Offset >= 0) and (Offset + SizeOf(Value) <= Length(Buffer));
+  if Result then
+    Move(Buffer[Offset], Value, SizeOf(Value));
+end;
+
+function ReadStruct(const Buffer: TBytes; Offset: Int64; out Value: TRSImageSectionHeader): Boolean; overload;
+begin
+  Result := (Offset >= 0) and (Offset + SizeOf(Value) <= Length(Buffer));
+  if Result then
+    Move(Buffer[Offset], Value, SizeOf(Value));
+end;
+
+function ReadStruct(const Buffer: TBytes; Offset: Int64; out Value: TRSImageImportDescriptor): Boolean; overload;
+begin
+  Result := (Offset >= 0) and (Offset + SizeOf(Value) <= Length(Buffer));
+  if Result then
+    Move(Buffer[Offset], Value, SizeOf(Value));
+end;
+
+function ReadStruct(const Buffer: TBytes; Offset: Int64; out Value: TRSImageExportDirectory): Boolean; overload;
+begin
+  Result := (Offset >= 0) and (Offset + SizeOf(Value) <= Length(Buffer));
+  if Result then
+    Move(Buffer[Offset], Value, SizeOf(Value));
+end;
+
+function ReadStruct(const Buffer: TBytes; Offset: Int64; out Value: UInt32): Boolean; overload;
+begin
+  Result := (Offset >= 0) and (Offset + SizeOf(Value) <= Length(Buffer));
+  if Result then
+    Move(Buffer[Offset], Value, SizeOf(Value));
+end;
+
+function ReadStruct(const Buffer: TBytes; Offset: Int64; out Value: Word): Boolean; overload;
+begin
+  Result := (Offset >= 0) and (Offset + SizeOf(Value) <= Length(Buffer));
+  if Result then
+    Move(Buffer[Offset], Value, SizeOf(Value));
 end;
 
 function ReadCString(const Buffer: TBytes; Offset: Int64): string;

@@ -26,6 +26,7 @@ RadSuiteExpert/
         ├── RadSuite.Tools.ClassBrowser.pas
         ├── RadSuite.Tools.UnitDependencies.pas
         ├── RadSuite.Tools.InitializationTree.pas
+        ├── RadSuite.Tools.CodeMap.pas
         ├── RadSuite.Tools.CodeLibrarian.pas
         ├── RadSuite.Tools.AddMember.pas
         ├── RadSuite.Tools.AIAssistant.pas
@@ -58,6 +59,7 @@ submenus **Source Templates** e **Text Tools**):
 | **Class Browser** | Árvore de classes → métodos/propriedades/campos da unit ativa, detetados por expressões regulares; duplo-clique navega até à declaração. Menu de contexto "Adicionar Membro..." abre o Add Member. |
 | **Unit Dependencies** | Lê as cláusulas `uses` de todas as units do projeto ativo e mostra, por unit, de que outras units do projeto depende e por quais é usada. |
 | **Show Initialization Tree** | Estima a ordem de inicialização das units do projeto por ordenação topológica do grafo de `uses` da interface; assinala ciclos/indeterminações. |
+| **Code Map & Checklist** | Gera uma página HTML offline (árvore de units do projeto, métodos por unit, checklist com progresso/estrela/notas/Compila/Sonar, exportação JSON/Markdown/CSV) e mantém-na atualizada por vigilância periódica enquanto a janela estiver aberta — ver secção própria abaixo. |
 | **List Units** | Lista filtrável (à medida que escreve) das units do projeto, com navegação por Enter/duplo-clique. |
 | **Code Librarian** | Gestor de snippets de código por categorias, guardados em `%APPDATA%\RadSuite\CodeLibrary.txt`; insere o snippet selecionado no editor ativo. |
 | **Add Member** | Diálogo unificado que gera esqueletos Pascal (campo, método, propriedade, procedure/function avulsa, class, interface, record, variável local) e insere-os no cursor. |
@@ -75,6 +77,33 @@ submenus **Source Templates** e **Text Tools**):
 | **PE Information** | Inspetor de ficheiros PE (EXE/DLL/BPL): DOS/NT headers, secções, imports e exports, lidos diretamente do binário (32 e 64-bit). |
 | **ASCII Chart** | Tabela de caracteres ASCII 0-255 (decimal/hex/carácter), com cópia para a clipboard. |
 | **Clean Directories** | Varre a pasta do projeto (ou outra à escolha) por ficheiros temporários/intermédios do Delphi (`.dcu`, `.~*`, `.local`, `__history`, etc.) e permite apagar os selecionados, com confirmação. |
+
+### Code Map & Checklist — detalhe
+
+Funde, em Delphi, a lógica de dois scripts PowerShell equivalentes (um gerador
+de mapa de código, outro de checklist), e acrescenta vigilância automática:
+
+- As units mostradas são as **registadas no projeto ativo do Delphi**
+  (via `IOTAProject`/`GetModule`), não uma varredura de pastas — por isso
+  não há lista de pastas a ignorar como nos scripts originais.
+- Os métodos de cada unit são extraídos com a mesma heurística textual
+  (regex) usada no resto do RadSuite, não um parser Delphi completo.
+- **Vigilância (polling)**: ao clicar "Iniciar vigilância", um `TTimer`
+  volta a ler a lista de units do projeto a cada N segundos (configurável);
+  se mudou (unit nova, apagada ou renomeada), a página é regenerada
+  automaticamente no disco, sem precisar de clicar "Atualizar".
+- A página HTML tem um botão de "auto-atualizar" (ícone ↻ no cabeçalho,
+  estado guardado no navegador) que, quando ligado, recarrega a própria
+  página a cada poucos segundos — útil para ver as units novas aparecerem
+  em tempo real sem premir F5.
+- Uma "cache" local (`%APPDATA%\RadSuite\CodeMap_<slug>.cache.txt`) guarda
+  a lista de units da última geração, para assinalar com um selo **NOVO**
+  as units criadas desde então.
+- O progresso (concluído/estrela/notas/Compila/Sonar, por ficheiro e por
+  método) fica guardado no `localStorage` do navegador — regenerar a
+  página não apaga o progresso já registado.
+- Botões "Fechar como finalizado" / "Reabrir projeto" adicionam ou removem
+  o selo "PROJETO FINALIZADO" no topo da página.
 
 ### AI Assistant — privacidade e configuração
 
@@ -100,8 +129,9 @@ submenus **Source Templates** e **Text Tools**):
 2. Se a IDE pedir para atualizar a versão do projeto, aceite.
 3. Compile o package (`Project > Build`).
 4. Instale-o: `Component > Install Packages... > Add`, e selecione o
-   `.bpl` gerado (normalmente em `Win32\Debug\RadSuiteExpertD13.bpl` ou
-   `Win64\Debug\...`).
+   `.bpl` gerado em `Win32\Debug\RadSuiteExpertD13.bpl`. O package é
+   Win32-only (como qualquer expert de IDE, independentemente da
+   plataforma dos projetos que desenvolve).
 5. Reinicie a IDE. Deverá aparecer:
    - Uma entrada "RadSuite Expert" na About Box (`Help > About`).
    - Um menu **RadSuite** na barra de menus principal, com todas as
@@ -129,6 +159,10 @@ submenus **Source Templates** e **Text Tools**):
   Optimization), não a totalidade das opções do projeto.
 - **Grep Search & Replace**: janela não-modal simples, sem docking nativo
   na IDE.
+- **Code Map & Checklist**: a vigilância é por *polling* (intervalo
+  configurável), não por notificação instantânea da IDE — uma unit nova
+  só é detetada no próximo ciclo. O auto-reload da própria página HTML
+  também é por intervalo fixo (8s), não instantâneo.
 - Nenhum destes ficheiros foi compilado/testado num Delphi real — ver nota
   acima.
 

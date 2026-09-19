@@ -15,7 +15,7 @@ const
   RadSuiteFontSize = 9;
 
 /// <summary>Applies the shared font/position convention to a tool form.</summary>
-procedure ApplyRadSuiteStyle(AForm: TCustomForm);
+procedure ApplyRadSuiteStyle(AForm: TForm);
 
 /// <summary>
 ///   Creates the standard RadSuite header bar (icon-less title + subtitle,
@@ -69,7 +69,7 @@ begin
   Result := HeaderPanel.Height + 12;
 end;
 
-procedure ApplyRadSuiteStyle(AForm: TCustomForm);
+procedure ApplyRadSuiteStyle(AForm: TForm);
 begin
   AForm.Font.Name := RadSuiteFontName;
   AForm.Font.Size := RadSuiteFontSize;
