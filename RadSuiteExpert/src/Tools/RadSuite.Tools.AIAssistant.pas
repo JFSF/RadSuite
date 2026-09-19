@@ -421,7 +421,11 @@ begin
   FSendButton.Enabled := False;
   FStatusLabel.Caption := 'A contactar a API da Anthropic...';
   FResponseMemo.Text := '';
-  SendRequest(FAPIKey, FModel, Content, HandleResponse);
+  SendRequest(FAPIKey, FModel, Content,
+    procedure(const AText: string; ASuccess: Boolean)
+    begin
+      HandleResponse(AText, ASuccess);
+    end);
 end;
 
 procedure TfrmAIAssistant.HandleResponse(const AText: string; ASuccess: Boolean);
