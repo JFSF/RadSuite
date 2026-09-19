@@ -3,7 +3,7 @@
         <ProjectGuid>{D318C086-5F41-4883-82D5-3E743D13B3E3}</ProjectGuid>
         <MainSource>RadSuiteExpertD13.dpk</MainSource>
         <ProjectVersion>20.5</ProjectVersion>
-        <FrameworkType>VCL</FrameworkType>
+        <FrameworkType>None</FrameworkType>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Debug</Config>
         <Platform Condition="'$(Platform)'==''">Win32</Platform>
@@ -68,9 +68,6 @@
         <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;$(DCC_Namespace)</DCC_Namespace>
         <DCC_CBuilderOutput>All</DCC_CBuilderOutput>
         <SanitizedProjectName>RadSuiteExpertD13</SanitizedProjectName>
-        <DCC_UsePackage>vcl;designide;$(DCC_UsePackage)</DCC_UsePackage>
-        <DCC_DesignOnly>true</DCC_DesignOnly>
-        <DCC_Description>RadSuite Expert for Delphi 13</DCC_Description>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Android)'!=''">
         <DCC_CBuilderOutput>None</DCC_CBuilderOutput>
