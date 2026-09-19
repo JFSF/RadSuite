@@ -102,56 +102,83 @@ begin
   end;
 end;
 
-procedure SendRequest(const APIKey, Model, UserContent: string; const OnDone: TProc<string, Boolean>);
+type
+  TRSAIRequestThread = class(TThread)
+  private
+    FAPIKey, FModel, FUserContent: string;
+    FOnDone: TProc<string, Boolean>;
+    FResponseText, FErrorMsg: string;
+    FSuccess: Boolean;
+    procedure DoCallback;
+  protected
+    procedure Execute; override;
+  public
+    constructor Create(const AAPIKey, AModel, AUserContent: string; const AOnDone: TProc<string, Boolean>);
+  end;
+
+constructor TRSAIRequestThread.Create(const AAPIKey, AModel, AUserContent: string; const AOnDone: TProc<string, Boolean>);
 begin
-  TThread.CreateAnonymousThread(
-    procedure
-    var
-      Client: THTTPClient;
-      RequestBody: TStringStream;
-      Response: IHTTPResponse;
-      ResponseText, ErrorMsg: string;
-      Success: Boolean;
-    begin
-      Success := False;
-      ResponseText := '';
-      ErrorMsg := '';
-      Client := THTTPClient.Create;
-      RequestBody := TStringStream.Create(BuildRequestBody(Model, UserContent), TEncoding.UTF8);
-      try
-        Client.ContentType := 'application/json';
+  inherited Create(True);
+  FreeOnTerminate := True;
+  FAPIKey := AAPIKey;
+  FModel := AModel;
+  FUserContent := AUserContent;
+  FOnDone := AOnDone;
+end;
+
+procedure TRSAIRequestThread.DoCallback;
+begin
+  if Assigned(FOnDone) then
+  begin
+    if FSuccess then
+      FOnDone(FResponseText, True)
+    else
+      FOnDone(FErrorMsg, False);
+  end;
+end;
+
+procedure TRSAIRequestThread.Execute;
+var
+  Client: THTTPClient;
+  RequestBody: TStringStream;
+  Response: IHTTPResponse;
+begin
+  FSuccess := False;
+  FResponseText := '';
+  FErrorMsg := '';
+  Client := THTTPClient.Create;
+  RequestBody := TStringStream.Create(BuildRequestBody(FModel, FUserContent), TEncoding.UTF8);
+  try
+    Client.ContentType := 'application/json';
+    try
+      Response := Client.Post(AnthropicEndpoint, RequestBody, nil,
+        [TNetHeader.Create('x-api-key', FAPIKey), TNetHeader.Create('anthropic-version', AnthropicVersion)]);
+      if Response.StatusCode = 200 then
+      begin
         try
-          Response := Client.Post(AnthropicEndpoint, RequestBody, nil,
-            [TNetHeader.Create('x-api-key', APIKey), TNetHeader.Create('anthropic-version', AnthropicVersion)]);
-          if Response.StatusCode = 200 then
-          begin
-            try
-              ResponseText := ExtractResponseText(Response.ContentAsString(TEncoding.UTF8));
-              Success := True;
-            except
-              on E: Exception do
-                ErrorMsg := E.Message;
-            end;
-          end
-          else
-            ErrorMsg := Format('HTTP %d: %s', [Response.StatusCode, Response.ContentAsString(TEncoding.UTF8)]);
+          FResponseText := ExtractResponseText(Response.ContentAsString(TEncoding.UTF8));
+          FSuccess := True;
         except
           on E: Exception do
-            ErrorMsg := 'Falha de rede: ' + E.Message;
+            FErrorMsg := E.Message;
         end;
-      finally
-        RequestBody.Free;
-        Client.Free;
-      end;
-      TThread.Queue(nil,
-        procedure
-        begin
-          if Success then
-            OnDone(ResponseText, True)
-          else
-            OnDone(ErrorMsg, False);
-        end);
-    end).Start;
+      end
+      else
+        FErrorMsg := Format('HTTP %d: %s', [Response.StatusCode, Response.ContentAsString(TEncoding.UTF8)]);
+    except
+      on E: Exception do
+        FErrorMsg := 'Falha de rede: ' + E.Message;
+    end;
+  finally
+    RequestBody.Free;
+    Client.Free;
+  end;
+  Queue(DoCallback);
+end;
+
+procedure SendRequest(const APIKey, Model, UserContent: string; const OnDone: TProc<string, Boolean>);
+begin
+  TRSAIRequestThread.Create(APIKey, Model, UserContent, OnDone).Start;
 end;
 
 type
