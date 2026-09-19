@@ -422,7 +422,7 @@ begin
   FStatusLabel.Caption := 'A contactar a API da Anthropic...';
   FResponseMemo.Text := '';
   SendRequest(FAPIKey, FModel, Content,
-    procedure(const AText: string; ASuccess: Boolean)
+    procedure(AText: string; ASuccess: Boolean)
     begin
       HandleResponse(AText, ASuccess);
     end);
