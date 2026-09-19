@@ -129,8 +129,9 @@ de mapa de código, outro de checklist), e acrescenta vigilância automática:
 2. Se a IDE pedir para atualizar a versão do projeto, aceite.
 3. Compile o package (`Project > Build`).
 4. Instale-o: `Component > Install Packages... > Add`, e selecione o
-   `.bpl` gerado (normalmente em `Win32\Debug\RadSuiteExpertD13.bpl` ou
-   `Win64\Debug\...`).
+   `.bpl` gerado em `Win32\Debug\RadSuiteExpertD13.bpl`. O package é
+   Win32-only (como qualquer expert de IDE, independentemente da
+   plataforma dos projetos que desenvolve).
 5. Reinicie a IDE. Deverá aparecer:
    - Uma entrada "RadSuite Expert" na About Box (`Help > About`).
    - Um menu **RadSuite** na barra de menus principal, com todas as
