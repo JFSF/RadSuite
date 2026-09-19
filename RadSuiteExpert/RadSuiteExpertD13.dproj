@@ -65,6 +65,7 @@
         <DCCReference Include="src\Tools\RadSuite.Tools.ClassBrowser.pas"/>
         <DCCReference Include="src\Tools\RadSuite.Tools.UnitDependencies.pas"/>
         <DCCReference Include="src\Tools\RadSuite.Tools.InitializationTree.pas"/>
+        <DCCReference Include="src\Tools\RadSuite.Tools.CodeMap.pas"/>
         <DCCReference Include="src\Tools\RadSuite.Tools.GrepSearch.pas"/>
         <DCCReference Include="src\Tools\RadSuite.Tools.AIAssistant.pas"/>
         <DCCReference Include="src\Tools\RadSuite.Tools.ProjectOptionSets.pas"/>

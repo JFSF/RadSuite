@@ -20,6 +20,7 @@ type
     procedure DoClassBrowser(Sender: TObject);
     procedure DoUnitDependencies(Sender: TObject);
     procedure DoInitializationTree(Sender: TObject);
+    procedure DoCodeMap(Sender: TObject);
     procedure DoGrepSearch(Sender: TObject);
     procedure DoAIAssistant(Sender: TObject);
     procedure DoProjectOptionSets(Sender: TObject);
@@ -54,6 +55,7 @@ uses
   RadSuite.Tools.ClassBrowser,
   RadSuite.Tools.UnitDependencies,
   RadSuite.Tools.InitializationTree,
+  RadSuite.Tools.CodeMap,
   RadSuite.Tools.GrepSearch,
   RadSuite.Tools.AIAssistant,
   RadSuite.Tools.ProjectOptionSets,
@@ -100,6 +102,7 @@ begin
   AddItem(FRootMenuItem, '&Class Browser...', DoClassBrowser);
   AddItem(FRootMenuItem, '&Unit Dependencies...', DoUnitDependencies);
   AddItem(FRootMenuItem, 'Show &Initialization Tree...', DoInitializationTree);
+  AddItem(FRootMenuItem, '&Code Map && Checklist...', DoCodeMap);
   FRootMenuItem.Add(NewLine);
   AddItem(FRootMenuItem, '&List Units...', DoListUnits);
   AddItem(FRootMenuItem, '&Code Librarian...', DoCodeLibrarian);
@@ -185,6 +188,11 @@ end;
 procedure TRadSuiteMenuController.DoInitializationTree(Sender: TObject);
 begin
   ShowInitializationTree;
+end;
+
+procedure TRadSuiteMenuController.DoCodeMap(Sender: TObject);
+begin
+  ShowCodeMap;
 end;
 
 procedure TRadSuiteMenuController.DoGrepSearch(Sender: TObject);

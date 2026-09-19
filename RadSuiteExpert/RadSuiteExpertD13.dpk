@@ -44,6 +44,7 @@ contains
   RadSuite.Tools.ClassBrowser in 'src\Tools\RadSuite.Tools.ClassBrowser.pas',
   RadSuite.Tools.UnitDependencies in 'src\Tools\RadSuite.Tools.UnitDependencies.pas',
   RadSuite.Tools.InitializationTree in 'src\Tools\RadSuite.Tools.InitializationTree.pas',
+  RadSuite.Tools.CodeMap in 'src\Tools\RadSuite.Tools.CodeMap.pas',
   RadSuite.Tools.GrepSearch in 'src\Tools\RadSuite.Tools.GrepSearch.pas',
   RadSuite.Tools.AIAssistant in 'src\Tools\RadSuite.Tools.AIAssistant.pas',
   RadSuite.Tools.ProjectOptionSets in 'src\Tools\RadSuite.Tools.ProjectOptionSets.pas',
